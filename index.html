@@ -1,0 +1,579 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan Anthropic — AI Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Newsreader:opsz@6..72&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0e10;--bg-soft:#16161a;--bg-card:#1b1b20;--line:#2a2a31;
+  --ink:#ece8e1;--ink-soft:#a09a8f;--ink-faint:#7a7469;
+  --accent:#f0a830;--accent-dim:#7a5a1c;--green:#7fd17f;
+  --display:'Fraunces',Georgia,serif;--body:'Newsreader',Georgia,serif;--mono:'JetBrains Mono',monospace;
+}
+body.light{
+  --bg:#f5f1e8;--bg-soft:#ede8db;--bg-card:#faf7f0;--line:#ddd6c4;
+  --ink:#1e1b14;--ink-soft:#4a4438;--ink-faint:#7a7060;
+  --accent:#a86200;--accent-dim:#d4a96a;--green:#2d7a38;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 500px at 75% 0%,rgba(240,168,48,.06),transparent 60%);
+  transition:opacity .3s;
+}
+body.light::before{opacity:.4}
+
+/* LANG: wrapper blocks */
+.L-en{display:none}
+.L-es{display:block}
+body.en .L-en{display:block}
+body.en .L-es{display:none}
+/* inline spans */
+span.L-en{display:none}
+span.L-es{display:inline}
+body.en span.L-en{display:inline}
+body.en span.L-es{display:none}
+
+/* CONTROLS */
+.controls{position:fixed;top:18px;right:20px;z-index:200;display:flex;gap:8px}
+.ctrl{
+  height:34px;border-radius:99px;border:1px solid var(--line);
+  background:var(--bg-card);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:border-color .2s,background .3s;
+  color:var(--ink-soft);font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:.06em;
+}
+.ctrl:hover{border-color:var(--accent-dim);color:var(--ink)}
+.ctrl.icon-btn{width:34px}
+.ctrl.txt-btn{padding:0 13px}
+.ctrl svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
+.sun-ico{display:block}.moon-ico{display:none}
+body.light .sun-ico{display:none}body.light .moon-ico{display:block}
+
+/* LAYOUT */
+.wrap{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* SIDEBAR */
+.nav{
+  width:264px;flex-shrink:0;border-right:1px solid var(--line);
+  padding:32px 22px;position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  background:var(--bg-soft);transition:background .3s,border-color .3s;
+}
+.brand{margin-bottom:26px}
+.brand .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.brand h1{font-family:var(--display);font-weight:900;font-size:23px;line-height:1.06;letter-spacing:-.01em}
+.brand .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-top:8px}
+.navlist{list-style:none;display:flex;flex-direction:column;gap:2px}
+.navlist button{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  color:var(--ink-soft);font-family:var(--mono);font-size:12.5px;
+  padding:10px 12px;border-radius:8px;display:flex;align-items:baseline;gap:10px;
+  transition:all .15s;
+}
+.navlist button .n{color:var(--ink-faint);font-size:10.5px;width:15px;flex-shrink:0}
+.navlist button:hover{background:var(--bg-card);color:var(--ink)}
+.navlist button.on{background:var(--bg-card);color:var(--accent)}
+.navlist button.on .n{color:var(--accent)}
+.navfoot{
+  margin-top:auto;padding-top:22px;font-family:var(--mono);
+  font-size:10.5px;color:var(--ink-faint);line-height:1.7;
+  border-top:1px solid var(--line);transition:border-color .3s;
+}
+
+/* MAIN */
+.main{flex:1;min-width:0;padding:56px 6vw 120px;max-width:900px}
+section{display:none;animation:fade .45s ease both}
+section.live{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.sec-head{margin-bottom:36px}
+.sec-head .tag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:11px}
+.sec-head h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,42px);line-height:1.05;letter-spacing:-.02em}
+.sec-head .lede{color:var(--ink-soft);font-size:18px;margin-top:14px;max-width:60ch;line-height:1.58}
+h3{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;margin:40px 0 13px}
+h4{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin:26px 0 9px}
+p{margin:0 0 15px;max-width:65ch}
+p.lead{font-size:19px}
+strong{font-weight:600}em{color:var(--accent);font-style:italic}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
+a:hover{border-color:var(--accent)}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:65ch}
+li{margin-bottom:7px}li::marker{color:var(--accent)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--bg-soft);padding:2px 6px;border-radius:4px;border:1px solid var(--line);transition:background .3s,border-color .3s}
+
+.callout{
+  border-left:3px solid var(--accent);background:var(--bg-card);
+  padding:15px 19px;border-radius:0 10px 10px 0;margin:20px 0;
+  color:var(--ink-soft);transition:background .3s;
+}
+.callout strong{color:var(--accent)}
+
+.tablewrap{overflow-x:auto;margin:16px 0 24px;border:1px solid var(--line);border-radius:11px;transition:border-color .3s}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:460px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;transition:background .3s,border-color .3s}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--bg-soft);font-weight:500}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--bg-soft)}
+.v{font-family:var(--mono);color:var(--accent);font-size:13px;font-weight:500}
+.t{font-family:var(--mono);color:var(--green);font-size:12px;white-space:nowrap}
+
+.phase{border:1px solid var(--line);border-radius:13px;background:var(--bg-card);padding:20px 22px;margin:16px 0;transition:background .3s,border-color .3s}
+.ph-top{display:flex;align-items:baseline;gap:13px;margin-bottom:6px;flex-wrap:wrap}
+.ph-n{font-family:var(--display);font-weight:900;font-size:26px;color:var(--accent);line-height:1}
+.ph-title{font-family:var(--display);font-weight:600;font-size:19px}
+.ph-when{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-left:auto}
+
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.dir{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg-card);position:relative;transition:background .3s,border-color .3s}
+.dir.pick{border-color:var(--accent-dim)}
+.dir .badge{position:absolute;top:-9px;right:13px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#1a1206;padding:3px 8px;border-radius:99px;font-weight:700}
+.dir .letter{font-family:var(--display);font-weight:900;font-size:20px;color:var(--accent)}
+.dir h5{font-family:var(--display);font-weight:600;font-size:16px;margin:3px 0 7px}
+.dir p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+.res{border-bottom:1px solid var(--line);padding:16px 0;transition:border-color .3s}
+.res:last-child{border:none}.res h4{margin-top:0}
+.res ul{margin-bottom:0}
+
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:18px 0 6px}
+.day{border:1px solid var(--line);border-radius:10px;padding:11px 7px;background:var(--bg-card);text-align:center;transition:background .3s,border-color .3s}
+.day.hard{opacity:.8}
+.day.deep{border-color:var(--accent-dim);background:var(--bg-soft)}
+.dname{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.dtime{font-family:var(--display);font-weight:700;font-size:16px;color:var(--accent);margin:5px 0 3px}
+.dwhat{font-size:10.5px;color:var(--ink-soft);line-height:1.3;font-family:var(--mono)}
+
+@media(max-width:840px){
+  .wrap{flex-direction:column}
+  .nav{width:100%;height:auto;position:static;border-right:none;border-bottom:1px solid var(--line)}
+  .navlist{flex-direction:row;flex-wrap:wrap;gap:5px}
+  .navlist button{width:auto}
+  .navfoot{display:none}
+  .main{padding:36px 20px 80px}
+  .controls{top:12px;right:12px}
+}
+</style>
+
+<!-- TOP-RIGHT CONTROLS -->
+<div class="controls">
+  <button class="ctrl icon-btn" id="themeBtn" aria-label="Toggle theme">
+    <span class="sun-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>
+    <span class="moon-ico"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
+  </button>
+  <button class="ctrl txt-btn" id="langBtn" aria-label="Toggle language">
+    <span class="L-es">EN</span><span class="L-en">ES</span>
+  </button>
+</div>
+
+<div class="wrap">
+<nav class="nav">
+  <div class="brand">
+    <div class="kicker"><span class="L-es">Roadmap · 2–4 años</span><span class="L-en">Roadmap · 2–4 years</span></div>
+    <h1><span class="L-es">De web dev a AI Systems Engineer</span><span class="L-en">From web dev to AI Systems Engineer</span></h1>
+    <div class="sub">Anthropic · Infra / Inference</div>
+  </div>
+  <ul class="navlist" id="navlist">
+    <li><button data-t="resumen" class="on"><span class="n">01</span><span class="L-es">Resumen</span><span class="L-en">Overview</span></button></li>
+    <li><button data-t="fases"><span class="n">02</span><span class="L-es">Las fases</span><span class="L-en">The phases</span></button></li>
+    <li><button data-t="proyecto"><span class="n">03</span><span class="L-es">El proyecto</span><span class="L-en">The project</span></button></li>
+    <li><button data-t="calendario"><span class="n">04</span><span class="L-es">Calendario</span><span class="L-en">Calendar</span></button></li>
+    <li><button data-t="recursos"><span class="n">05</span><span class="L-es">Recursos</span><span class="L-en">Resources</span></button></li>
+    <li><button data-t="notas"><span class="n">06</span><span class="L-es">Notas</span><span class="L-en">Notes</span></button></li>
+  </ul>
+  <div class="navfoot">
+    <div class="L-es">1–2 h/día · + bloque finde<br>≈10–12 h / semana</div>
+    <div class="L-en">1–2 h/day · + weekend block<br>≈10–12 h / week</div>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- 01 RESUMEN -->
+<section id="resumen" class="live">
+  <div class="sec-head">
+    <span class="tag">01</span>
+    <h2><span class="L-es">No te falta conocimiento. Te falta señal.</span><span class="L-en">You don't lack knowledge. You lack signal.</span></h2>
+    <p class="lede L-es">Ya operas sistemas reales en producción. Este plan es una estrategia para orientar lo que ya eres hacia "AI systems engineer" de forma visible.</p>
+    <p class="lede L-en">You already operate real systems in production. This plan is a strategy to position what you already are as an "AI systems engineer" in a visible way.</p>
+  </div>
+  <div class="tablewrap">
+    <div class="L-es"><table><tbody>
+      <tr><th>Objetivo</th><td>Rol de AI Systems / Infra / Inference en Anthropic o equivalente.</td></tr>
+      <tr><th>Horizonte</th><td>2–4 años.</td></tr>
+      <tr><th>Tiempo</th><td>1–2 h/día entre semana + bloque profundo el fin de semana.</td></tr>
+      <tr><th>Punto de partida</th><td>Docker, nginx, PostgreSQL, Redis, despliegues, hardware. Partes de la mitad del camino del lado de sistemas.</td></tr>
+    </tbody></table></div>
+    <div class="L-en"><table><tbody>
+      <tr><th>Goal</th><td>AI Systems / Infra / Inference role at Anthropic or equivalent.</td></tr>
+      <tr><th>Timeline</th><td>2–4 years.</td></tr>
+      <tr><th>Time</th><td>1–2 h/day on weekdays + a deep block on weekends.</td></tr>
+      <tr><th>Starting point</th><td>Docker, nginx, PostgreSQL, Redis, deployments, hardware. Halfway there on the systems side.</td></tr>
+    </tbody></table></div>
+  </div>
+  <h3><span class="L-es">Principio rector</span><span class="L-en">Core principle</span></h3>
+  <p class="lead L-es">Tu unidad de progreso <strong>no son horas de estudio, son cosas públicas que demuestran capacidad.</strong></p>
+  <p class="lead L-en">Your unit of progress <strong>is not study hours — it's public things that demonstrate capability.</strong></p>
+  <p class="L-es">Cada mes debes poder señalar algo nuevo que existe fuera de tu cabeza: un repo, un post, un commit aceptado. Un mes en el que "solo estudiaste" es un mes perdido aunque aprendieras.</p>
+  <p class="L-en">Every month you should be able to point to something new that exists outside your head: a repo, a post, an accepted commit. A month where you "only studied" is a lost month — even if you learned.</p>
+  <div class="callout L-es"><strong>Regla de oro:</strong> nunca estudias un tema en abstracto; lo aprendes porque el proyecto lo exige esta semana. Las matemáticas y Python entran como herramientas, no como asignaturas.</div>
+  <div class="callout L-en"><strong>Golden rule:</strong> you never study a topic in the abstract — you learn it because the project demands it this week. Math and Python come in as tools, not subjects.</div>
+  <h3><span class="L-es">Mapa general</span><span class="L-en">Overview map</span></h3>
+  <div class="tablewrap">
+    <div class="L-es"><table><thead><tr><th>Fase</th><th>Periodo</th><th>Foco</th><th>Señal al terminar</th></tr></thead><tbody>
+      <tr><td><span class="v">0</span></td><td class="t">Sem 1–4</td><td>Entorno, hábito, versión cutre</td><td>GitHub limpio + servicio sirviendo un modelo</td></tr>
+      <tr><td><span class="v">1</span></td><td class="t">Mes 1–6</td><td>Fundamentos ML + Python engineering</td><td>Proyecto v0 + 2–3 posts</td></tr>
+      <tr><td><span class="v">2</span></td><td class="t">Mes 6–18</td><td>Serving e inferencia real</td><td>Proyecto v1 + primeras PRs OSS</td></tr>
+      <tr><td><span class="v">3</span></td><td class="t">Mes 18–36</td><td>Profundidad, visibilidad, networking</td><td>OSS recurrente + inglés fluido</td></tr>
+      <tr><td><span class="v">4</span></td><td class="t">Mes 36–48</td><td>Conversión</td><td>Referencias + aplicar</td></tr>
+    </tbody></table></div>
+    <div class="L-en"><table><thead><tr><th>Phase</th><th>Period</th><th>Focus</th><th>Signal at the end</th></tr></thead><tbody>
+      <tr><td><span class="v">0</span></td><td class="t">Wk 1–4</td><td>Setup, habit, ugly first version</td><td>Clean GitHub + service running a model</td></tr>
+      <tr><td><span class="v">1</span></td><td class="t">Mo 1–6</td><td>ML fundamentals + Python engineering</td><td>Project v0 + 2–3 posts</td></tr>
+      <tr><td><span class="v">2</span></td><td class="t">Mo 6–18</td><td>Real serving & inference</td><td>Project v1 + first OSS PRs</td></tr>
+      <tr><td><span class="v">3</span></td><td class="t">Mo 18–36</td><td>Depth, visibility, networking</td><td>Recurring OSS + fluent English</td></tr>
+      <tr><td><span class="v">4</span></td><td class="t">Mo 36–48</td><td>Conversion</td><td>References + apply</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<!-- 02 FASES -->
+<section id="fases">
+  <div class="sec-head">
+    <span class="tag">02</span>
+    <h2><span class="L-es">Cinco fases, en orden.</span><span class="L-en">Five phases, in order.</span></h2>
+    <p class="lede L-es">Lo innegociable: el orden y que cada fase deje señal pública antes de pasar a la siguiente.</p>
+    <p class="lede L-en">Non-negotiable: the order, and each phase leaving a public signal before moving to the next.</p>
+  </div>
+  <div class="phase">
+    <div class="ph-top"><span class="ph-n">0</span><span class="ph-title"><span class="L-es">Arranque</span><span class="L-en">Setup</span></span><span class="ph-when"><span class="L-es">Semanas 1–4</span><span class="L-en">Weeks 1–4</span></span></div>
+    <p class="L-es">El objetivo no es aprender, es eliminar fricción y empezar a producir. La mayoría fracasa aquí por querer estar "listo" antes de empezar.</p>
+    <p class="L-en">The goal is not to learn — it's to eliminate friction and start producing. Most people fail here by wanting to be "ready" before they begin.</p>
+    <div class="tablewrap">
+      <div class="L-es"><table><thead><tr><th>Acción</th><th>Tiempo</th></tr></thead><tbody>
+        <tr><td>Limpiar GitHub: username, bio, fijar repos</td><td class="t">2 h</td></tr>
+        <tr><td>Repo <code>learning-roadmap</code> con el plan público</td><td class="t">1 h</td></tr>
+        <tr><td>Entorno Python: uv, ruff, pytest, pyright</td><td class="t">2 h</td></tr>
+        <tr><td>Hábito de inglés desde el día 1</td><td class="t">30–45 min/día</td></tr>
+        <tr><td><strong>Construir la versión cutre:</strong> FastAPI que sirve un modelo de HF</td><td class="t">1 h/día + finde</td></tr>
+      </tbody></table></div>
+      <div class="L-en"><table><thead><tr><th>Action</th><th>Time</th></tr></thead><tbody>
+        <tr><td>Clean up GitHub: username, bio, pin repos</td><td class="t">2 h</td></tr>
+        <tr><td><code>learning-roadmap</code> repo with public plan</td><td class="t">1 h</td></tr>
+        <tr><td>Python env: uv, ruff, pytest, pyright</td><td class="t">2 h</td></tr>
+        <tr><td>English habit from day 1</td><td class="t">30–45 min/day</td></tr>
+        <tr><td><strong>Build the ugly version:</strong> FastAPI serving an HF model</td><td class="t">1 h/day + weekend</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="callout L-es"><strong>Entregable clave:</strong> un servicio que pasa datos por un modelo y responde. Que funcione mal. Que se caiga. El problema que te aparezca <em>es la semilla de tu proyecto real.</em></div>
+    <div class="callout L-en"><strong>Key deliverable:</strong> a service that passes data through a model and responds. It can work badly. It can crash. The problem that appears <em>is the seed of your real project.</em></div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-top"><span class="ph-n">1</span><span class="ph-title"><span class="L-es">Fundamentos construyendo</span><span class="L-en">Building fundamentals</span></span><span class="ph-when"><span class="L-es">Meses 1–6</span><span class="L-en">Months 1–6</span></span></div>
+    <p class="L-es">Construyes la base de ML <strong>mientras</strong> subes tu Python a nivel engineering. Todo cuelga del proyecto v0.</p>
+    <p class="L-en">You build the ML foundation <strong>while</strong> levelling up Python to engineering grade. Everything hangs off the v0 project.</p>
+    <div class="L-es"><h4>Qué aprender (tirado por el proyecto)</h4><ol>
+      <li><strong>Python engineering:</strong> typing, estructuras, clases, async, pytest, logging, packaging, profiling.</li>
+      <li><strong>Matemáticas mínimas:</strong> álgebra lineal, probabilidad, gradiente. Intuición, no demostraciones.</li>
+      <li><strong>ML desde dentro:</strong> redes neuronales, backprop, training loop. A mano una vez, luego en PyTorch.</li>
+      <li><strong>PyTorch:</strong> tensores, autograd, datasets, training loop propio, debugging.</li>
+    </ol></div>
+    <div class="L-en"><h4>What to learn (driven by the project)</h4><ol>
+      <li><strong>Python engineering:</strong> typing, data structures, classes, async, pytest, logging, packaging, profiling.</li>
+      <li><strong>Minimal math:</strong> linear algebra, probability, gradient. Intuition, not proofs.</li>
+      <li><strong>ML from the inside:</strong> neural nets, backprop, training loop. By hand once, then in PyTorch.</li>
+      <li><strong>PyTorch:</strong> tensors, autograd, datasets, your own training loop, debugging.</li>
+    </ol></div>
+    <div class="callout L-es"><strong>Señal:</strong> proyecto v0 corriendo y público + 2–3 posts técnicos honestos sobre problemas reales.</div>
+    <div class="callout L-en"><strong>Signal:</strong> project v0 running and public + 2–3 honest technical posts about real problems.</div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-top"><span class="ph-n">2</span><span class="ph-title"><span class="L-es">Serving e inferencia real</span><span class="L-en">Real serving & inference</span></span><span class="ph-when"><span class="L-es">Meses 6–18</span><span class="L-en">Months 6–18</span></span></div>
+    <p class="L-es">Donde te diferencias: hacer que los modelos corran <strong>rápido, fiable y a escala.</strong> Ya sabes operar sistemas; ahora aprendes a operar <em>modelos.</em></p>
+    <p class="L-en">Where you differentiate: making models run <strong>fast, reliably, and at scale.</strong> You already know how to operate systems — now you learn to operate <em>models.</em></p>
+    <div class="L-es"><h4>Qué aprender</h4><ol>
+      <li><strong>Inferencia y serving:</strong> batching, quantization, latencia vs throughput, KV cache. vLLM, TGI, ONNX Runtime, llama.cpp.</li>
+      <li><strong>Transformers y LLMs (nivel sistemas):</strong> attention, embeddings, tokenization, inference, fine-tuning conceptual.</li>
+      <li><strong>Infra de IA:</strong> colas, caching Redis, observabilidad de modelos, evaluación, manejo de fallos.</li>
+      <li><strong>Sistemas distribuidos:</strong> libro de Kleppmann, un capítulo cada pocas semanas, toda la fase.</li>
+    </ol></div>
+    <div class="L-en"><h4>What to learn</h4><ol>
+      <li><strong>Inference & serving:</strong> batching, quantization, latency vs throughput, KV cache. vLLM, TGI, ONNX Runtime, llama.cpp.</li>
+      <li><strong>Transformers & LLMs (systems level):</strong> attention, embeddings, tokenization, inference, conceptual fine-tuning.</li>
+      <li><strong>AI infra:</strong> queues, Redis caching, model observability, evaluation, failure handling.</li>
+      <li><strong>Distributed systems:</strong> Kleppmann's book, one chapter every few weeks, throughout the phase.</li>
+    </ol></div>
+    <div class="callout L-es"><strong>Señal:</strong> proyecto v1 público y presentable + primeras PRs aceptadas en open source.</div>
+    <div class="callout L-en"><strong>Signal:</strong> project v1 public and presentable + first accepted open source PRs.</div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-top"><span class="ph-n">3</span><span class="ph-title"><span class="L-es">Visibilidad y networking</span><span class="L-en">Visibility & networking</span></span><span class="ph-when"><span class="L-es">Meses 18–36</span><span class="L-en">Months 18–36</span></span></div>
+    <p class="L-es">El cuello de botella deja de ser conocimiento y pasa a ser <strong>que la gente adecuada te conozca.</strong></p>
+    <p class="L-en">The bottleneck stops being knowledge and becomes <strong>the right people knowing who you are.</strong></p>
+    <div class="L-es"><ul>
+      <li>Interactúa con ingenieros de infra/inference en GitHub, X, blogs. Con criterio, no con halagos.</li>
+      <li>Participa en comunidades técnicas (Discord de vLLM, Hugging Face…).</li>
+      <li>Meetups y conferencias de IA aplicada o MLOps (también en Europa).</li>
+      <li>Meta: cuando apliques, no seas un CV frío — sé alguien cuyo trabajo <em>ya han visto.</em></li>
+    </ul></div>
+    <div class="L-en"><ul>
+      <li>Engage with infra/inference engineers on GitHub, X, blogs. With substance, not flattery.</li>
+      <li>Participate in technical communities (vLLM Discord, Hugging Face…).</li>
+      <li>Meetups and applied AI / MLOps conferences (Europe counts too).</li>
+      <li>Goal: when you apply, don't be a cold CV — be someone whose work <em>they've already seen.</em></li>
+    </ul></div>
+    <div class="callout L-es"><strong>Señal:</strong> proyecto maduro que otros podrían usar + historial visible de contribuciones OSS + presencia que deja claro que construyes.</div>
+    <div class="callout L-en"><strong>Signal:</strong> mature project others could use + visible OSS contribution history + presence that clearly shows you build.</div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-top"><span class="ph-n">4</span><span class="ph-title"><span class="L-es">Conversión</span><span class="L-en">Conversion</span></span><span class="ph-when"><span class="L-es">Meses 36–48</span><span class="L-en">Months 36–48</span></span></div>
+    <p class="L-es">Solo entras aquí cuando las fases anteriores han dejado señal real. Aplicar en frío es la peor vía.</p>
+    <p class="L-en">You only enter here when previous phases have left real signal. Applying cold is the worst route.</p>
+    <div class="tablewrap">
+      <div class="L-es"><table><thead><tr><th>Acción</th><th>Detalle</th></tr></thead><tbody>
+        <tr><td>Buscar referencia interna</td><td>Alguien que haya visto tu trabajo y pueda referenciarte. Multiplica tus opciones.</td></tr>
+        <tr><td>Identificar el rol</td><td>Inference / Cloud Inference / AI Reliability / SWE-Infra. Oficinas EU: Londres, Dublín, Múnich, París, Zúrich.</td></tr>
+        <tr><td>Preparar entrevistas</td><td>Coding + diseño de sistemas. Kleppmann y tu proyecto son la mejor preparación.</td></tr>
+        <tr><td>Aplicar</td><td>Con referencia si la tienes; si no, con proyecto y posts que hablen por ti.</td></tr>
+      </tbody></table></div>
+      <div class="L-en"><table><thead><tr><th>Action</th><th>Detail</th></tr></thead><tbody>
+        <tr><td>Find an internal reference</td><td>Someone who has seen your work and can refer you. Multiplies your chances.</td></tr>
+        <tr><td>Identify the role</td><td>Inference / Cloud Inference / AI Reliability / SWE-Infra. EU offices: London, Dublin, Munich, Paris, Zurich.</td></tr>
+        <tr><td>Prepare for interviews</td><td>Coding + system design. Kleppmann and your project are the best prep.</td></tr>
+        <tr><td>Apply</td><td>With a referral if you have one; if not, with a project and posts that speak for you.</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="callout L-es"><strong>Relocación:</strong> Anthropic patrocina visados para roles elegibles. Hay oficinas en Europa. No descartes el camino europeo desde el principio.</div>
+    <div class="callout L-en"><strong>Relocation:</strong> Anthropic sponsors visas for eligible roles. EU offices exist. Don't rule out the European path from the start.</div>
+  </div>
+</section>
+
+<!-- 03 PROYECTO -->
+<section id="proyecto">
+  <div class="sec-head">
+    <span class="tag">03</span>
+    <h2><span class="L-es">Sale del barro, no de la pizarra.</span><span class="L-en">It comes from the mud, not the whiteboard.</span></h2>
+    <p class="lede L-es">Tres direcciones que explotan tu terreno único (IoT / edge / hardware real). Elige una, no las tres.</p>
+    <p class="lede L-en">Three directions that exploit your unique ground (IoT / edge / real hardware). Pick one, not all three.</p>
+  </div>
+  <div class="grid3">
+    <div class="dir pick">
+      <span class="badge"><span class="L-es">Mi apuesta</span><span class="L-en">My pick</span></span>
+      <div class="letter">A</div>
+      <h5>Edge Inference Gateway</h5>
+      <p class="L-es">Sirve modelos sobre datos de sensores, parte en el edge (ESP32 simulado o real) y parte en servidor, con fallback, caching y observabilidad.</p>
+      <p class="L-en">Serves models on sensor data, partly at the edge (simulated or real ESP32) and partly on the server, with fallback, caching and observability.</p>
+    </div>
+    <div class="dir">
+      <div class="letter">B</div>
+      <h5>Serving Observability Platform</h5>
+      <p class="L-es">Capa que envuelve cualquier servicio de inferencia y expone métricas reales: latencia p50/p99, throughput, memoria, fallos, deriva.</p>
+      <p class="L-en">A layer wrapping any inference service and exposing real metrics: latency p50/p99, throughput, memory, failures, drift.</p>
+    </div>
+    <div class="dir">
+      <div class="letter">C</div>
+      <h5>Sensor-to-LLM Pipeline</h5>
+      <p class="L-es">Ingiere datos de sensores, los convierte en contexto y los pasa a un LLM para diagnóstico/alertas. Toca RAG, embeddings, evaluación.</p>
+      <p class="L-en">Ingests sensor data, converts it to context and passes it to an LLM for diagnosis/alerts. Touches RAG, embeddings, evaluation.</p>
+    </div>
+  </div>
+  <div class="callout L-es"><strong>Sobre el hardware:</strong> no necesitas hardware físico para empezar ni para el 80% del proyecto. Usas un simulador de dispositivos — scripts que generan datos de sensores y bombardean tu gateway. El ESP32 real, si lo quieres, llega en el v0.8, y ya tienes experiencia con él en Agerpix.</div>
+  <div class="callout L-en"><strong>About hardware:</strong> you don't need physical hardware to start or for 80% of the project. You use a device simulator — scripts that generate sensor data and hammer your gateway. The real ESP32, if you want it, comes at v0.8, and you already have experience with it at Agerpix.</div>
+  <h3><span class="L-es">Estructura v0 → v1</span><span class="L-en">v0 → v1 structure</span></h3>
+  <p class="L-es">Cada versión <strong>funciona de punta a punta</strong> antes de añadir nada. Construyes algo pequeño y completo, y lo engordas.</p>
+  <p class="L-en">Each version <strong>works end to end</strong> before adding anything. You build something small and complete, then grow it.</p>
+  <div class="tablewrap">
+    <div class="L-es"><table><thead><tr><th>Versión</th><th>Qué hace</th><th>Qué demuestras</th><th>Cuándo</th></tr></thead><tbody>
+      <tr><td><span class="v">v0</span></td><td>FastAPI recibe dato, pasa por modelo HF, responde. Se cae, va lento.</td><td>Montas el lazo completo</td><td class="t">Sem 2–4</td></tr>
+      <tr><td><span class="v">v0.2</span></td><td>Logging + métricas básicas. Tests. Dockerizado.</td><td>Piensas en operar</td><td class="t">Mes 2–3</td></tr>
+      <tr><td><span class="v">v0.4</span></td><td>Caching Redis. Manejo de fallos (timeouts, reintentos, degradado).</td><td>Fiabilidad: el corazón del rol</td><td class="t">Mes 4–6</td></tr>
+      <tr><td><span class="v">v0.6</span></td><td>Batching. Latencia vs throughput. Cuantización del modelo.</td><td>Entiendes inferencia</td><td class="t">Mes 7–10</td></tr>
+      <tr><td><span class="v">v0.8</span></td><td>Simulador (o ESP32 real) con inferencia ligera local + delegación al servidor.</td><td>Edge + servidor: tu diferenciador</td><td class="t">Mes 10–14</td></tr>
+      <tr><td><span class="v">v1</span></td><td>Observabilidad completa, evaluación automática, README serio + post largo.</td><td>El paquete completo</td><td class="t">Mes 14–18</td></tr>
+    </tbody></table></div>
+    <div class="L-en"><table><thead><tr><th>Version</th><th>What it does</th><th>What it proves</th><th>When</th></tr></thead><tbody>
+      <tr><td><span class="v">v0</span></td><td>FastAPI receives data, passes through HF model, responds. Crashes, slow.</td><td>You can wire the full loop</td><td class="t">Wk 2–4</td></tr>
+      <tr><td><span class="v">v0.2</span></td><td>Logging + basic metrics. Tests. Dockerized.</td><td>You think about operations</td><td class="t">Mo 2–3</td></tr>
+      <tr><td><span class="v">v0.4</span></td><td>Redis caching. Failure handling (timeouts, retries, degraded response).</td><td>Reliability: the heart of the role</td><td class="t">Mo 4–6</td></tr>
+      <tr><td><span class="v">v0.6</span></td><td>Batching. Latency vs throughput. Model quantization.</td><td>You understand inference</td><td class="t">Mo 7–10</td></tr>
+      <tr><td><span class="v">v0.8</span></td><td>Simulator (or real ESP32) with lightweight local inference + delegation to server.</td><td>Edge + server: your differentiator</td><td class="t">Mo 10–14</td></tr>
+      <tr><td><span class="v">v1</span></td><td>Full observability, automatic evaluation, serious README + long post.</td><td>The full package</td><td class="t">Mo 14–18</td></tr>
+    </tbody></table></div>
+  </div>
+  <div class="callout L-es">Cada salto de versión = <strong>un post técnico</strong> sobre el problema que te forzó a darlo. Proyecto y visibilidad crecen juntos.</div>
+  <div class="callout L-en">Each version jump = <strong>one technical post</strong> about the problem that forced the upgrade. Project and visibility grow together.</div>
+</section>
+
+<!-- 04 CALENDARIO -->
+<section id="calendario">
+  <div class="sec-head">
+    <span class="tag">04</span>
+    <h2><span class="L-es">Adaptado a tu semana real.</span><span class="L-en">Built around your real week.</span></h2>
+    <p class="lede L-es">9 h lunes–miércoles (días duros) y 6 h 30 jueves–viernes (más margen). Poco entre semana pesada, más los días ligeros, el grueso el fin de semana.</p>
+    <p class="lede L-en">9 h Monday–Wednesday (hard days) and 6 h 30 Thursday–Friday (more room). Light on heavy days, more on lighter ones, the bulk on weekends.</p>
+  </div>
+  <h3><span class="L-es">Plantilla semanal</span><span class="L-en">Weekly template</span></h3>
+  <div class="week">
+    <div class="day hard"><div class="dname"><span class="L-es">Lun</span><span class="L-en">Mon</span></div><div class="dtime">45m</div><div class="dwhat"><span class="L-es">Input EN</span><span class="L-en">EN input</span></div></div>
+    <div class="day hard"><div class="dname"><span class="L-es">Mar</span><span class="L-en">Tue</span></div><div class="dtime">45m</div><div class="dwhat"><span class="L-es">Concepto</span><span class="L-en">Concept</span></div></div>
+    <div class="day hard"><div class="dname"><span class="L-es">Mié</span><span class="L-en">Wed</span></div><div class="dtime">45m</div><div class="dwhat"><span class="L-es">Idem/descanso</span><span class="L-en">Same/rest</span></div></div>
+    <div class="day"><div class="dname"><span class="L-es">Jue</span><span class="L-en">Thu</span></div><div class="dtime">1h30</div><div class="dwhat"><span class="L-es">Construir</span><span class="L-en">Build</span></div></div>
+    <div class="day"><div class="dname"><span class="L-es">Vie</span><span class="L-en">Fri</span></div><div class="dtime">1h30</div><div class="dwhat"><span class="L-es">Construir+hablar</span><span class="L-en">Build+speak</span></div></div>
+    <div class="day deep"><div class="dname"><span class="L-es">Sáb</span><span class="L-en">Sat</span></div><div class="dtime">3–4h</div><div class="dwhat"><span class="L-es">Bloque profundo</span><span class="L-en">Deep block</span></div></div>
+    <div class="day deep"><div class="dname"><span class="L-es">Dom</span><span class="L-en">Sun</span></div><div class="dtime">1h</div><div class="dwhat"><span class="L-es">Cerrar+revisar</span><span class="L-en">Close+review</span></div></div>
+  </div>
+  <p style="font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin:6px 0 0"><span class="L-es">≈10–12 h/semana sostenibles. No fuerces los días de 9 h.</span><span class="L-en">≈10–12 sustainable h/week. Don't push on 9-hour days.</span></p>
+  <h3><span class="L-es">Año 1 — mes a mes</span><span class="L-en">Year 1 — month by month</span></h3>
+  <div class="tablewrap">
+    <div class="L-es"><table><thead><tr><th>Mes</th><th>Aprendizaje</th><th>Proyecto</th><th>Señal pública</th></tr></thead><tbody>
+      <tr><td class="t">1</td><td>Entorno + FastAPI + HF básico</td><td><span class="v">v0</span></td><td>GitHub + repo plan</td></tr>
+      <tr><td class="t">2</td><td>Python engineering + testing</td><td><span class="v">v0.2</span></td><td>—</td></tr>
+      <tr><td class="t">3</td><td>Álgebra lineal + redes (Karpathy)</td><td><span class="v">v0.2</span></td><td>Post 1: el lazo y su 1er fallo</td></tr>
+      <tr><td class="t">4</td><td>Backprop + training loop a mano</td><td><span class="v">v0.4</span></td><td>—</td></tr>
+      <tr><td class="t">5</td><td>PyTorch: tensores, autograd</td><td><span class="v">v0.4</span></td><td>Post 2: fiabilidad</td></tr>
+      <tr><td class="t">6</td><td>PyTorch: training loop, debugging</td><td><span class="v">v0.4</span></td><td>Revisión semestral</td></tr>
+      <tr><td class="t">7</td><td>Batching, latencia vs throughput</td><td><span class="v">v0.6</span></td><td>—</td></tr>
+      <tr><td class="t">8</td><td>Quantization + KV cache (vLLM)</td><td><span class="v">v0.6</span></td><td>Post 3: optimización</td></tr>
+      <tr><td class="t">9</td><td>Transformers (Alammar + Karpathy)</td><td><span class="v">v0.6</span></td><td>Empezar Kleppmann</td></tr>
+      <tr><td class="t">10</td><td>Edge inference (ONNX / llama.cpp)</td><td><span class="v">v0.8</span></td><td>—</td></tr>
+      <tr><td class="t">11</td><td>Observabilidad de modelos</td><td><span class="v">v0.8</span></td><td>Post 4: edge + servidor</td></tr>
+      <tr><td class="t">12</td><td>Sistemas distribuidos (Kleppmann)</td><td><span class="v">v0.8</span></td><td>Revisión anual</td></tr>
+    </tbody></table></div>
+    <div class="L-en"><table><thead><tr><th>Mo</th><th>Learning</th><th>Project</th><th>Public signal</th></tr></thead><tbody>
+      <tr><td class="t">1</td><td>Setup + FastAPI + basic HF</td><td><span class="v">v0</span></td><td>GitHub + roadmap repo</td></tr>
+      <tr><td class="t">2</td><td>Python engineering + testing</td><td><span class="v">v0.2</span></td><td>—</td></tr>
+      <tr><td class="t">3</td><td>Linear algebra + networks (Karpathy)</td><td><span class="v">v0.2</span></td><td>Post 1: the loop and its first failure</td></tr>
+      <tr><td class="t">4</td><td>Backprop + training loop by hand</td><td><span class="v">v0.4</span></td><td>—</td></tr>
+      <tr><td class="t">5</td><td>PyTorch: tensors, autograd</td><td><span class="v">v0.4</span></td><td>Post 2: reliability</td></tr>
+      <tr><td class="t">6</td><td>PyTorch: training loop, debugging</td><td><span class="v">v0.4</span></td><td>6-month review</td></tr>
+      <tr><td class="t">7</td><td>Batching, latency vs throughput</td><td><span class="v">v0.6</span></td><td>—</td></tr>
+      <tr><td class="t">8</td><td>Quantization + KV cache (vLLM)</td><td><span class="v">v0.6</span></td><td>Post 3: optimization</td></tr>
+      <tr><td class="t">9</td><td>Transformers (Alammar + Karpathy)</td><td><span class="v">v0.6</span></td><td>Start Kleppmann</td></tr>
+      <tr><td class="t">10</td><td>Edge inference (ONNX / llama.cpp)</td><td><span class="v">v0.8</span></td><td>—</td></tr>
+      <tr><td class="t">11</td><td>Model observability</td><td><span class="v">v0.8</span></td><td>Post 4: edge + server</td></tr>
+      <tr><td class="t">12</td><td>Distributed systems (Kleppmann)</td><td><span class="v">v0.8</span></td><td>Annual review</td></tr>
+    </tbody></table></div>
+  </div>
+  <h3><span class="L-es">Años 2–4 — marcadores trimestrales</span><span class="L-en">Years 2–4 — quarterly markers</span></h3>
+  <div class="tablewrap">
+    <div class="L-es"><table><thead><tr><th>Trimestre</th><th>Objetivo dominante</th></tr></thead><tbody>
+      <tr><td class="t">T5–T6 · m13–18</td><td>Cerrar <strong>v1</strong>: observabilidad, evaluación, README + post largo. Primeras PRs OSS.</td></tr>
+      <tr><td class="t">T7–T8 · m19–24</td><td>OSS recurrente (1–2 PR/mes). Inglés fluido. Networking suave. Post/mes.</td></tr>
+      <tr><td class="t">T9–T10 · m25–30</td><td>OSS de más peso. Escalar el proyecto. Presencia consolidada.</td></tr>
+      <tr><td class="t">T11–T12 · m31–36</td><td>Networking activo: interacción real con gente del ecosistema/Anthropic.</td></tr>
+      <tr><td class="t">Año 4</td><td><strong>Conversión:</strong> referencia, rol concreto, entrevistas, aplicar.</td></tr>
+    </tbody></table></div>
+    <div class="L-en"><table><thead><tr><th>Quarter</th><th>Main objective</th></tr></thead><tbody>
+      <tr><td class="t">Q5–Q6 · mo13–18</td><td>Close <strong>v1</strong>: observability, evaluation, README + long post. First OSS PRs.</td></tr>
+      <tr><td class="t">Q7–Q8 · mo19–24</td><td>Recurring OSS (1–2 PR/month). Fluent English. Light networking. Post/month.</td></tr>
+      <tr><td class="t">Q9–Q10 · mo25–30</td><td>Weightier OSS. Scale the project. Consolidated presence.</td></tr>
+      <tr><td class="t">Q11–Q12 · mo31–36</td><td>Active networking: real interaction with ecosystem / Anthropic people.</td></tr>
+      <tr><td class="t">Year 4</td><td><strong>Conversion:</strong> referral, specific role, interviews, apply.</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<!-- 05 RECURSOS -->
+<section id="recursos">
+  <div class="sec-head">
+    <span class="tag">05</span>
+    <h2><span class="L-es">Gratuito y de los que enseñan.</span><span class="L-en">Free and actually good.</span></h2>
+    <p class="lede L-es">No los toques todos a la vez. Abre cada uno cuando el proyecto te lo pida.</p>
+    <p class="lede L-en">Don't touch them all at once. Open each one when the project demands it.</p>
+  </div>
+  <div class="res"><h4>Python</h4>
+    <div class="L-es"><ul><li><em>Fluent Python</em> (Luciano Ramalho) — referencia de consulta, no lectura lineal.</li><li>Docs de <strong>uv</strong>, <strong>ruff</strong>, <strong>pytest</strong>.</li><li><a href="https://realpython.com" target="_blank" rel="noopener">realpython.com</a></li></ul></div>
+    <div class="L-en"><ul><li><em>Fluent Python</em> (Luciano Ramalho) — reference book, not linear reading.</li><li>Docs for <strong>uv</strong>, <strong>ruff</strong>, <strong>pytest</strong>.</li><li><a href="https://realpython.com" target="_blank" rel="noopener">realpython.com</a></li></ul></div>
+  </div>
+  <div class="res"><h4><span class="L-es">Matemáticas</span><span class="L-en">Math</span></h4>
+    <div class="L-es"><ul><li><strong>3Blue1Brown</strong> — "Essence of Linear Algebra" (YouTube). Imprescindible.</li><li><a href="https://mml-book.github.io" target="_blank" rel="noopener">Mathematics for Machine Learning</a> — libro gratuito.</li></ul></div>
+    <div class="L-en"><ul><li><strong>3Blue1Brown</strong> — "Essence of Linear Algebra" (YouTube). Essential.</li><li><a href="https://mml-book.github.io" target="_blank" rel="noopener">Mathematics for Machine Learning</a> — free book.</li></ul></div>
+  </div>
+  <div class="res"><h4>ML</h4>
+    <div class="L-es"><ul><li><strong>Andrej Karpathy — "Neural Networks: Zero to Hero"</strong> (YouTube). Todo a mano, en código.</li><li><a href="https://www.fast.ai" target="_blank" rel="noopener">fast.ai</a> — curso práctico top-down.</li></ul></div>
+    <div class="L-en"><ul><li><strong>Andrej Karpathy — "Neural Networks: Zero to Hero"</strong> (YouTube). Everything by hand, in code.</li><li><a href="https://www.fast.ai" target="_blank" rel="noopener">fast.ai</a> — practical top-down course.</li></ul></div>
+  </div>
+  <div class="res"><h4>PyTorch</h4><ul><li><a href="https://pytorch.org/tutorials" target="_blank" rel="noopener">pytorch.org/tutorials</a></li><li><a href="https://huggingface.co/learn" target="_blank" rel="noopener">huggingface.co/learn</a></li></ul></div>
+  <div class="res"><h4>Transformers & LLMs</h4>
+    <div class="L-es"><ul><li><em>The Illustrated Transformer</em> (Jay Alammar) — la explicación visual canónica.</li><li>Karpathy — "Let's build GPT" (YouTube).</li></ul></div>
+    <div class="L-en"><ul><li><em>The Illustrated Transformer</em> (Jay Alammar) — the canonical visual explanation.</li><li>Karpathy — "Let's build GPT" (YouTube).</li></ul></div>
+  </div>
+  <div class="res"><h4><span class="L-es">Serving e inferencia</span><span class="L-en">Serving & inference</span></h4>
+    <div class="L-es"><ul><li>Docs de <strong>vLLM</strong> — batching, KV cache, paged attention.</li><li>Hugging Face <strong>TGI</strong> + <strong>ONNX Runtime</strong> + <strong>llama.cpp</strong>.</li></ul></div>
+    <div class="L-en"><ul><li><strong>vLLM</strong> docs — batching, KV cache, paged attention.</li><li>Hugging Face <strong>TGI</strong> + <strong>ONNX Runtime</strong> + <strong>llama.cpp</strong>.</li></ul></div>
+  </div>
+  <div class="res"><h4><span class="L-es">Sistemas distribuidos</span><span class="L-en">Distributed systems</span></h4>
+    <div class="L-es"><ul><li><strong>Designing Data-Intensive Applications</strong> (Martin Kleppmann). <em>El</em> libro. Despacio, toda la Fase 2.</li></ul></div>
+    <div class="L-en"><ul><li><strong>Designing Data-Intensive Applications</strong> (Martin Kleppmann). <em>The</em> book. Slowly, throughout Phase 2.</li></ul></div>
+  </div>
+  <div class="res"><h4><span class="L-es">Comunidad</span><span class="L-en">Community</span></h4>
+    <div class="L-es"><ul><li>Discords de vLLM y Hugging Face. Engineering blogs de Anthropic y OpenAI.</li><li><a href="https://www.anthropic.com/careers" target="_blank" rel="noopener">anthropic.com/careers</a></li></ul></div>
+    <div class="L-en"><ul><li>vLLM and Hugging Face Discords. Engineering blogs from Anthropic and OpenAI.</li><li><a href="https://www.anthropic.com/careers" target="_blank" rel="noopener">anthropic.com/careers</a></li></ul></div>
+  </div>
+</section>
+
+<!-- 06 NOTAS -->
+<section id="notas">
+  <div class="sec-head">
+    <span class="tag">06</span>
+    <h2><span class="L-es">Lo que hunde a perfiles como el tuyo.</span><span class="L-en">What sinks profiles like yours.</span></h2>
+  </div>
+  <h3><span class="L-es">Hábito de inglés</span><span class="L-en">English habit</span></h3>
+  <div class="L-es"><ul>
+    <li><strong>Input:</strong> todo lo técnico en inglés. No traduzcas mentalmente.</li>
+    <li><strong>Output escrito:</strong> commits, READMEs, posts y notas en inglés.</li>
+    <li><strong>Hablado:</strong> 2×/semana, explica en voz alta un sistema o decisión. Aunque sea solo.</li>
+  </ul></div>
+  <div class="L-en"><ul>
+    <li><strong>Input:</strong> all technical content in English. Don't translate mentally.</li>
+    <li><strong>Written output:</strong> commits, READMEs, posts and notes in English.</li>
+    <li><strong>Spoken:</strong> 2×/week, explain a system or decision out loud. Even alone.</li>
+  </ul></div>
+  <h3><span class="L-es">Errores a evitar</span><span class="L-en">Mistakes to avoid</span></h3>
+  <div class="L-es"><ol>
+    <li>Estudiar para "estar listo" en vez de construir y aprender en el camino.</li>
+    <li>Hacer 20 mini-proyectos en vez de 1 que evoluciona.</li>
+    <li>Dejar la visibilidad "para cuando sepas más" — es desde el mes 1.</li>
+    <li>Elegir un proyecto genérico en vez de explotar tu terreno único (IoT/edge).</li>
+    <li>Competir en research puro (PhDs) en vez de en infra/sistemas, donde tienes ventaja.</li>
+    <li>Cuatro bloques diarios — insostenible. Una hora real bate cuatro que abandonas.</li>
+  </ol></div>
+  <div class="L-en"><ol>
+    <li>Studying to be "ready" instead of building and learning along the way.</li>
+    <li>Making 20 mini-projects instead of 1 that evolves.</li>
+    <li>Leaving visibility "for when you know more" — it starts from month 1.</li>
+    <li>Choosing a generic project instead of exploiting your unique ground (IoT/edge).</li>
+    <li>Competing in pure research (PhDs) instead of infra/systems, where you have an edge.</li>
+    <li>Four daily blocks — unsustainable. One real hour beats four you abandon.</li>
+  </ol></div>
+  <h3><span class="L-es">Revisión</span><span class="L-en">Review</span></h3>
+  <div class="callout L-es"><strong>Cada domingo (15 min):</strong> ¿qué cosa pública nueva produje esta semana? Si la respuesta es "ninguna" tres semanas seguidas, algo hay que ajustar.<br><br><strong>Cada 3 meses:</strong> ¿sigo en la fase correcta? ¿El proyecto avanza o se ha estancado?</div>
+  <div class="callout L-en"><strong>Every Sunday (15 min):</strong> what new public thing did I produce this week? If the answer is "nothing" three weeks in a row, something needs adjusting.<br><br><strong>Every 3 months:</strong> am I still in the right phase? Is the project moving or stalled?</div>
+</section>
+
+</div>
+</div>
+
+<script>
+  document.getElementById('themeBtn').addEventListener('click', () => document.body.classList.toggle('light'));
+  document.getElementById('langBtn').addEventListener('click', () => document.body.classList.toggle('en'));
+  document.querySelectorAll('#navlist button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#navlist button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      document.querySelectorAll('.main section').forEach(s => s.classList.remove('live'));
+      document.getElementById(btn.dataset.t).classList.add('live');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+</script>
